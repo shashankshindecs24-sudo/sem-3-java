@@ -1,0 +1,64 @@
+import java.util.*;
+class WrongAge extends Exception{
+    WrongAge()
+    {
+        super("Age Error...");
+    }
+    WrongAge(String message)
+    {
+            super(message);
+    }
+}
+class InputScanner{
+    Scanner sc= new Scanner (System.in);
+}
+class Father extends InputScanner{
+    int FatherAge;
+    Father() throws WrongAge
+    {
+        System.out.println("Enter Father's age :");
+        FatherAge=sc.nextInt();
+        if(FatherAge<0)
+        {
+            throw new WrongAge("Father's Age cannot be less than 0...");
+        }
+    }
+    void Display()
+    {
+        System.out.println("Father's age : "+FatherAge);
+    }
+
+}
+class Son extends Father{
+    int SonAge;
+    Son() throws WrongAge
+    {
+        super();
+        System.out.println("Enter Son's age :");
+        SonAge=sc.nextInt();
+        if(SonAge<0)
+        {
+            throw new WrongAge("Son's Age cannot be less than 0...");
+        }
+        if(SonAge>FatherAge)
+        {
+            throw new WrongAge("Son's age cannot be greater than Father's age...");
+        }
+    }
+    void Display()
+    {
+        System.out.println("Son's age : "+SonAge);
+    }
+    
+}
+public class FatherSonAge {
+    public static void main(String[] args) {
+        try {
+            Son obj = new Son();
+            obj.Display();
+        } 
+        catch (WrongAge e) {
+            System.out.println("Exception Caught: " + e.getMessage());
+        }
+    }
+}
