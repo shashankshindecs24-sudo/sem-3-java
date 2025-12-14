@@ -1,0 +1,80 @@
+import java.util.Scanner;
+class Subject{
+    int subjectMarks,credit,grade;
+}
+public class student {
+    String name,usn;
+    double sgpa;
+    Scanner sc = new Scanner(System.in);
+    Subject subject[];
+    student(int n)
+    {
+        subject = new Subject[n];   
+        for(int i=0;i<n;i++)
+        {
+            subject[i]=new Subject();
+        }
+    }
+    void getStudentDetails()
+    {
+        System.out.println("Enter student name:");
+        name= sc.next();
+        System.out.println("Enter USN:");
+        usn=sc.next();
+    }
+    void getMarks(int n)
+    {
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("Enter subject "+(i+1)+" marks :");
+            subject[i].subjectMarks=sc.nextInt();
+            System.out.println("Enter subject "+(i+1)+" credits :");
+            subject[i].credit=sc.nextInt();
+            subject[i].grade=(subject[i].subjectMarks/10)+1;
+            if(subject[i].grade>=11)
+            {
+                subject[i].grade = 10;
+            }
+            else if(subject[i].grade<=4)
+            {
+                subject[i].grade=0;
+            }
+        }
+    }
+    double computeSGPA(int n)
+    {
+        int totalcredits=0;
+        int totalgradepoints=0;
+        for(int i=0;i<n;i++)
+        {
+            totalcredits=totalcredits+subject[i].credit;
+            totalgradepoints=totalgradepoints+subject[i].grade;
+        }
+        double sgpa=0.0;
+        sgpa=(double)totalgradepoints/totalcredits;
+        return sgpa;
+    }
+    void display(int n)
+    {
+        System.out.println("Name of student : "+name);
+        System.out.println("USN : "+usn);
+        System.out.println("SGPA : "+computeSGPA(n));
+    }
+    public static void main(String args[])
+    {
+        Scanner s= new Scanner(System.in);
+        System.out.println("Enter the number of subjects : ");
+        int n=s.nextInt();
+        student st = new student(n);
+        st.getStudentDetails();
+        st.getMarks(n);
+        st.computeSGPA(n);
+        st.display(n);
+        s.close();
+        
+    }
+
+}
+
+
+
