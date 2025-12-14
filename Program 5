@@ -1,0 +1,166 @@
+import java.util.Scanner;
+
+class Bank {
+    double balance;
+    double rate = 0.05;
+}
+
+class SavingsAccount extends Bank {
+
+    void deposit(int amt) {
+        balance += amt;
+        System.out.println("Deposit successful...");
+        System.out.println("Deposited : " + amt + "  Updated Balance : " + balance);
+    }
+
+    void withdraw(int amt) {
+        if (amt > balance) {
+            System.out.println("Insufficient Balance...");
+            return;
+        }
+        balance -= amt;
+        System.out.println("Withdrawal successful...");
+        System.out.println("Withdrawn : " + amt + "\tUpdated Balance : " + balance);
+    }
+
+    void interest() {
+        System.out.println("Rate offered by bank : 5%");
+        double interest = balance * rate;
+        balance += interest;
+        System.out.println("Interest : " + interest + "\tUpdated Balance : " + balance);
+    }
+
+    void display() {
+        System.out.println("Account Type : Savings");
+        System.out.println("Balance : " + balance);
+    }
+}
+
+class CurrentAccount extends Bank {
+
+    CurrentAccount() {
+        balance = 1000;
+    }
+
+    void deposit(int amt) {
+        balance += amt;
+        System.out.println("Deposit successful...");
+        System.out.println("Deposited : " + amt + "  Updated Balance : " + balance);
+    }
+
+    void withdraw(int amt) {
+        if (balance < 1000) {
+            System.out.println("Balance less than Minimum Balance...");
+            int penalty = 500;
+            balance -= penalty;
+            System.out.println("Penalty imposed : " + penalty);
+            return;
+        }
+
+        if (amt > balance) {
+            System.out.println("Insufficient Balance...");
+            return;
+        }
+
+        balance -= amt;
+        System.out.println("Withdrawal successful...");
+        System.out.println("Withdrawn : " + amt + "\tUpdated Balance : " + balance);
+    }
+
+    void interest() {
+        System.out.println("Interest facility not available for Current Account.");
+    }
+
+    void display() {
+        System.out.println("Account Type : Current Account");
+        System.out.println("Balance : " + balance);
+    }
+}
+
+public class banking {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter customer name : ");
+        String name = sc.next();
+
+        System.out.print("Enter account number : ");
+        int accno = sc.nextInt();
+
+        SavingsAccount sav = new SavingsAccount();
+        CurrentAccount cur = new CurrentAccount();
+
+        while (true) {
+            System.out.println("\n----------MENU--------");
+            System.out.println("1.Deposit");
+            System.out.println("2.Withdraw");
+            System.out.println("3.Compute Interest");
+            System.out.println("4.Display");
+            System.out.println("5.Exit");
+            System.out.print("Enter your choice : ");
+
+            int ch = sc.nextInt();
+            String accty;
+            
+
+            switch (ch) {
+
+                case 1:
+                    System.out.print("Enter type of account (savings/current) : ");
+                    accty = sc.next();
+                    System.out.print("Enter amount : ");
+                    int dAmt = sc.nextInt();
+                    if (accty.equalsIgnoreCase("savings"))
+                        sav.deposit(dAmt);
+                    else if (accty.equalsIgnoreCase("current"))
+                        cur.deposit(dAmt);
+                    else
+                        System.out.println("Invalid account type");
+                    break;
+
+                case 2:
+                    System.out.print("Enter type of account (savings/current) : ");
+                    accty = sc.next();
+                    System.out.print("Enter amount : ");
+                    int wAmt = sc.nextInt();
+                    if (accty.equalsIgnoreCase("savings"))
+                        sav.withdraw(wAmt);
+                    else if (accty.equalsIgnoreCase("current"))
+                        cur.withdraw(wAmt);
+                    else
+                        System.out.println("Invalid account type");
+                    break;
+
+                case 3:
+                    System.out.print("Enter type of account (savings/current) : ");
+                    accty = sc.next();    
+                    if (accty.equalsIgnoreCase("savings"))
+                        sav.interest();
+                    else if (accty.equalsIgnoreCase("current"))
+                        cur.interest();
+                    else
+                        System.out.println("Invalid account type");
+                    break;
+
+                case 4:
+                    System.out.print("Enter type of account (savings/current) : ");
+                    accty = sc.next();    
+                    System.out.println("Customer Name : " + name);
+                    System.out.println("Account Number : " + accno);
+                    if (accty.equalsIgnoreCase("savings"))
+                        sav.display();
+                    else if (accty.equalsIgnoreCase("current"))
+                        cur.display();
+                    else
+                        System.out.println("Invalid account type");
+                    break;
+
+                case 5:
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
