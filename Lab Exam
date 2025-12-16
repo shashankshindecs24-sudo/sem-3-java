@@ -1,0 +1,115 @@
+class A{
+    private int a;
+    private int b;
+    protected float c;
+    protected float d;
+    public int e;
+    public int f;
+    int  priv1()
+    {
+        a=10;
+        return a;
+    }
+    int priv2()
+    {
+        b=20;
+        return b;
+    }
+    public A(){}
+    {
+        c=30;
+        d=40;
+       
+    }
+    public A(int n1, int n2)
+    {
+        e=50;
+        f=60;
+        n1=e;
+        n2=f;
+    }
+}
+class MyThread1 extends Thread{
+    public void run()
+    {
+         for(int i=0;i<5;i++)
+        {
+            System.out.println("Program for using super keyword");
+        }
+        try{
+            
+            Thread.sleep(2000);
+        }
+        catch(InterruptedException e)
+        {
+            System.out.println(e);
+        }
+    }
+}
+class MyThread2 extends Thread{
+    public void run()
+    {
+        for(int i=0;i<5;i++)
+        {
+            System.out.println("Program for using constructors");
+        }
+        try{
+            
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            System.out.println(e);
+        }
+    }
+}
+class B extends A{
+    A obj = new A();
+    B(){
+         super();
+         System.out.println("The value of a = "+obj.priv1());
+         System.out.println("The value of b = "+obj.priv2());
+    }
+    public B(int n1,int n2){
+        super(n1,n2);
+        System.out.println("The value of e = "+e);
+        System.out.println("The value of f = "+f);
+    }
+    int g=70;
+    int h=80;
+}
+class C extends B{
+    public C(){
+        System.out.println("The value of c ="+c);
+        System.out.println("The value of d = "+d);
+    }
+    public void show(){
+        System.out.println("The value of g ="+g);
+    }
+}
+class D extends B{
+    public void show()
+    {
+        System.out.println("The value of h = "+h);
+    }
+}
+class Display
+{
+    public static void main(String[] args)
+    {
+        
+        
+        B b1 = new B();
+        int num1=0;
+        int num2=0;
+        B b2 = new B(num1,num2);
+        C c1 = new C();
+        D d1 = new D();
+        c1.show();
+        d1.show();
+        MyThread1 ob1 = new MyThread1();
+        MyThread2 ob2 = new MyThread2();
+        ob1.start();
+        ob2.start();
+    }
+}
